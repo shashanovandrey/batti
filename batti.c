@@ -32,10 +32,10 @@ typedef struct _applet
     guint percentage;
 } applet;
 
-static void child_watch_cb(GPid pid,
-                           gint status __attribute__((unused)),
-                           GPid *ppid)
+static void child_watch_cb(GPid pid, gint status, GPid *ppid)
 {
+    (void)status;
+
     g_spawn_close_pid(pid);
     *ppid = 0;
 }
@@ -96,13 +96,14 @@ static const gchar *state_to_string(guint32 state)
     }
 }
 
-static void on_properties_changed(GDBusProxy *proxy
-                                  __attribute__((unused)),
+static void on_properties_changed(GDBusProxy *proxy,
                                   GVariant *changed_properties,
-                                  GStrv invalidated_properties
-                                  __attribute__((unused)),
+                                  GStrv invalidated_properties,
                                   applet *data)
 {
+    (void)proxy;
+    (void)invalidated_properties;
+
     GVariantIter *iter;
     const gchar *key;
     GVariant *value;
@@ -201,7 +202,7 @@ static GDBusProxy *init(applet *data)
     return proxy;
 }
 
-int main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))
+int main(void)
 {
     applet data;
     GDBusProxy *proxy;
