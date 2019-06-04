@@ -30,6 +30,7 @@ typedef struct _applet
     GtkStatusIcon *status_icon;
     const gchar *state_string;
     guint percentage;
+    guint pad;
 } applet;
 
 static void child_watch_cb(GPid pid, gint status, GPid *ppid)
